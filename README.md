@@ -6,6 +6,10 @@ Tweakable CRT shader for the web/canvas/three.js/etc
 
 😎
 
+## Screenshot
+
+![Default parameters](/screenshot.png)
+
 ## Licence
 
 [MIT](/LICENSE)
