@@ -12,6 +12,7 @@ Tweakable CRT shader for the web/canvas/three.js/etc
 
 - in this example the source image is scaled with interpolation (smoothing) to add to the vibe
 - you want to try to match the number of lines to the output resolution (here, 256)
+- optimised to run well on as far back as iPhone XS (2018, A12 Bionic CPU w/ 4-core GPU)
 
 ## Screenshot
 
