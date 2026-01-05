@@ -4,6 +4,15 @@ Tweakable CRT shader for web canvas, three.js, etc.
 
 If you use this in your game/app/website I'd love to hear about it.
 
+### About
+
+This is a WebGL GLSL shader intended for use in web browsers.
+
+- Runs on the device’s **hardware GPU**
+- Browser provides the WebGL interface and safety checks
+- Renders to a `<canvas>` (or OffscreenCanvas)
+- Not limited to games — usable for effects, demos, and creative coding
+
 ## Try it
 
 [LIVE DEMO](https://gingerbeardman.github.io/glsl-web-crt-shader/)
