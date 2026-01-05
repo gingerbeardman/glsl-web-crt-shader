@@ -22,7 +22,7 @@ const DEFAULTS = {
 
 export class CRTTweakPanel {
   constructor(options) {
-    const { target, defaults = DEFAULTS, title = 'CRT SHADER' } = options;
+    const { target, defaults = DEFAULTS, title = 'WEBGL CRT SHADER' } = options;
     this.target = target;
     this.defaults = defaults;
 
