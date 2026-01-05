@@ -4,6 +4,8 @@ Tweakable CRT shader for web canvas, three.js, etc.
 
 If you use this in your game/app/website I'd love to hear about it.
 
+Let's call this _Serenity Shader_ if we need a name to refer to it as.
+
 ## About
 
 This is a WebGL shader, written in GLSL, intended for use in web browsers.
