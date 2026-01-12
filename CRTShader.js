@@ -71,10 +71,17 @@ export const CRTShader = {
       return coords * 0.5 + 0.5;
     }
 
-    // Optimized bloom sampling (single sample with larger radius)
-    vec4 sampleBloom(sampler2D tex, vec2 uv, float radius) {
-      // Single sample at larger offset for performance
-      return texture2D(tex, uv) * 0.6 + texture2D(tex, uv + vec2(radius * 1.5)) * 0.4;
+    // Low-cost symmetric bloom sampling (cross + center, normalized)
+    vec4 sampleBloom(sampler2D tex, vec2 uv, float radius, vec4 centerSample) {
+      vec2 o = vec2(radius);
+      vec4 c = centerSample * 0.4;
+      vec4 cross = (
+        texture2D(tex, uv + vec2(o.x, 0.0)) +
+        texture2D(tex, uv - vec2(o.x, 0.0)) +
+        texture2D(tex, uv + vec2(0.0, o.y)) +
+        texture2D(tex, uv - vec2(0.0, o.y))
+      ) * 0.15;
+      return c + cross;
     }
 
     // Approximates vignette using Chebyshev distance squared instead of pow()
@@ -103,9 +110,9 @@ export const CRTShader = {
       if (bloomIntensity > 0.001) {
         float pixelLum = dot(pixel.rgb, LUMA);
         // Only sample bloom if pixel is above threshold
-        float bloomThresholdHalf = bloomThreshold * BLOOM_THRESHOLD_FACTOR;
-        if (pixelLum > bloomThresholdHalf) {
-          vec4 bloomSample = sampleBloom(tDiffuse, uv, 0.005);
+        if (pixelLum > bloomThreshold) {
+          float scaledRadius = 0.005 * clamp(bloomIntensity * 2.0, 0.5, 1.0);
+          vec4 bloomSample = sampleBloom(tDiffuse, uv, scaledRadius, pixel);
           bloomSample.rgb *= brightness;
           float bloomLum = dot(bloomSample.rgb, LUMA);
           float bloomFactor = bloomIntensity * max(0.0, (bloomLum - bloomThreshold) * BLOOM_FACTOR_MULT);
